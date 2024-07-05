@@ -17,8 +17,12 @@ function App() {
 
   return (
     <>
+      <div>
       <ColorBar/>
+      </div>
+      <div>
       <ColorBar target_hue={TargetHue} threshold={Threshold}/>
+      </div>
       <div>
         <input defaultValue={TargetHue} type="range" min="0" max="399" style={{width: "400px"}} onChange={handleTargetHue} id="myRange"/>
       </div>
@@ -27,8 +31,9 @@ function App() {
         <input defaultValue={Threshold} onChange={handleThreshold}  type="range" min="0" max="399" style={{width: "400px"}} id="myRange2"/>
       </div>
       <h4 style={{margin: 0}}>Threshold: {Threshold}</h4>
-
+      <div>
       <ImageWithMask target_hue={TargetHue} threshold={Threshold}/>
+      </div>
     </>
   )
 }

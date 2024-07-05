@@ -23,7 +23,21 @@ export function ImageWithMask({target_hue, threshold}){
         for(var x = 0; x < width; x++) {
             let [h,s,v] = rgb2hsv(idata.data[pos], idata.data[pos + 1], idata.data[pos + 2]);
             var pos = (y * width + x) * 4; // position in buffer based on x and y
-            if(target_hue + threshold > h && target_hue - threshold < h){
+            let interval = [target_hue - threshold, target_hue + threshold];
+            let isOverflow = false;
+            if(interval[0] < 0){ 
+                let aux = interval[1];
+                interval[1] = interval[0] + 360;
+                interval[0] = aux;
+                isOverflow = true;
+            }
+            if(interval[1] > 360){ 
+                let aux = interval[1];
+                interval[1] = interval[0];
+                interval[0] = aux % 360;
+                isOverflow=true;
+            }
+            if((interval[0] < h && interval[1] > h)!= isOverflow){
                 buffer[pos] = idata.data[pos];           // some R value [0, 255]
                 buffer[pos+1] = idata.data[pos + 1];           // some G value
                 buffer[pos+2] = idata.data[pos + 2];           // some B value

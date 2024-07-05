@@ -3,13 +3,27 @@ import { hsv2rgb } from "./utils";
 export function ColorBar({target_hue, threshold}){
     var width = 400;
     var height = 200;
-    //buffer = new Uint8ClampedArray(width * height * 4);
+
     let buffer = new Uint8ClampedArray(width * height * 4);
     let row = new Uint8ClampedArray(width * 4);
     if(target_hue !== undefined && threshold){
         for(var x = 0; x < width; x++) {
             var pos = x * 4;
-            if(target_hue + threshold > (x / width * 360) && target_hue - threshold < x / width * 360){
+            let interval = [target_hue - threshold, target_hue + threshold];
+            let isOverflow = false;
+            if(interval[0] < 0){ 
+                let aux = interval[1];
+                interval[1] = interval[0] + 360;
+                interval[0] = aux;
+                isOverflow = true;
+            }
+            if(interval[1] > 360){ 
+                let aux = interval[1];
+                interval[1] = interval[0];
+                interval[0] = aux % 360;
+                isOverflow=true;
+            }
+            if((interval[0] < x / width * 360 && interval[1] > (x / width * 360)) != isOverflow){
                 row[pos] = 255;           // some R value [0, 255]
                 row[pos+1] = 255;           // some G value
                 row[pos+2] = 255;           // some B value
@@ -44,13 +58,10 @@ export function ColorBar({target_hue, threshold}){
     canvas.width = width;
     canvas.height = height;
 
-    // create imageData object
     var idata = ctx.createImageData(width, height);
 
-    // set our buffer as source
     idata.data.set(buffer);
 
-    // update canvas with new data
     ctx.putImageData(idata, 0, 0);
     var dataUri = canvas.toDataURL(); 
     return (
