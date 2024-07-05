@@ -28,11 +28,11 @@ function App() {
       </div>
       <h4 style={{margin: 0}}>Target hue: {TargetHue}</h4>
       <div>
-        <input defaultValue={Threshold} onChange={handleThreshold}  type="range" min="0" max="399" style={{width: "400px"}} id="myRange2"/>
+        <input defaultValue={Threshold} onChange={handleThreshold}  type="range" min="0" max="170" style={{width: "400px"}} id="myRange2"/>
       </div>
       <h4 style={{margin: 0}}>Threshold: {Threshold}</h4>
       <div>
-      <ImageWithMask target_hue={TargetHue} threshold={Threshold}/>
+        <ImageWithMask target_hue={TargetHue} threshold={Threshold}/>
       </div>
     </>
   )
