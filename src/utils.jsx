@@ -7,7 +7,7 @@ export function hsv2rgb(h,s,v)
 }  
 
 // input: r,g,b in [0,255], out: h in [0,360) and s,v in [0,1]
-function rgb2hsv(r,g,b) {
+export function rgb2hsv(r,g,b) {
     r /= 255;
     g /= 255;
     b /= 255;
