@@ -4,7 +4,7 @@ import { createRef, useEffect, useState } from "react";
 
 export function ImageWithMask({
     target_hue, threshold, width,
-     height, ctx ,idata,buffer}){
+     height ,idata,buffer}){
 
     for(var y = 0; y < height; y++) {
         for(var x = 0; x < width; x++) {
@@ -39,19 +39,19 @@ export function ImageWithMask({
         }
     }
     var processedCanvas = document.createElement('canvas'),
-    ctx = processedCanvas.getContext('2d');
+    context = processedCanvas.getContext('2d');
 
     processedCanvas.width = width;
     processedCanvas.height = height;
 
     // create imageData object
-    var imdata = ctx.createImageData(width, height);
+    var imdata = context.createImageData(width, height);
 
     // set our buffer as source
     imdata.data.set(buffer);
 
     // update canvas with new data
-    ctx.putImageData(imdata, 0, 0);
+    context.putImageData(imdata, 0, 0);
     var dataURI = processedCanvas.toDataURL(); 
 
     return (

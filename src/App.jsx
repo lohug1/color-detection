@@ -51,7 +51,7 @@ function App() {
       </div>
       <h4 style={{margin: 0}}>Threshold: {Threshold}</h4>
       <div>
-        <ImageWithMask target_hue={TargetHue} threshold={Threshold} width={width} height={height} ctx={ctx} idata={idata} buffer={buffer}/>
+        <ImageWithMask target_hue={TargetHue} threshold={Threshold} width={width} height={height} idata={idata} buffer={buffer}/>
       </div>
     </>
   )
