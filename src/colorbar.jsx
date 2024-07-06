@@ -2,11 +2,11 @@ import { hsv2rgb } from "./utils";
 
 export function ColorBar({target_hue, threshold}){
     var width = 400;
-    var height = 200;
+    var height = 100;
 
     let buffer = new Uint8ClampedArray(width * height * 4);
     let row = new Uint8ClampedArray(width * 4);
-    if(target_hue !== undefined && threshold){
+    if(target_hue !== undefined && threshold != undefined){
         for(var x = 0; x < width; x++) {
             var pos = x * 4;
             let interval = [target_hue - threshold, target_hue + threshold];
