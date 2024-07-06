@@ -33,14 +33,20 @@ function App() {
   const handleThreshold = (event) => {
     setThreshold(parseInt( event.target.value));
   };
+  var width2 = 400;
+  var height2 = 100;
 
+  let buffer2 = new Uint8ClampedArray(width2 * height2 * 4);
+  let row2 = new Uint8ClampedArray(width2 * 4);
+  let buffer3 = new Uint8ClampedArray(width2 * height2 * 4);
+  let row3 = new Uint8ClampedArray(width2 * 4);
   return (
     <>
       <div>
-      <ColorBar/>
+      <ColorBar width={width2} height={height2} buffer={buffer3} row={row3}/>
       </div>
       <div>
-      <ColorBar target_hue={TargetHue} threshold={Threshold}/>
+      <ColorBar target_hue={TargetHue} threshold={Threshold} width={width2} height={height2} buffer={buffer2} row={row2}/>
       </div>
       <div>
         <input defaultValue={TargetHue} type="range" min="0" max="399" style={{width: "400px"}} onChange={handleTargetHue} id="myRange"/>

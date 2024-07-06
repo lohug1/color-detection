@@ -1,11 +1,7 @@
 import { hsv2rgb } from "./utils";
 
-export function ColorBar({target_hue, threshold}){
-    var width = 400;
-    var height = 100;
-
-    let buffer = new Uint8ClampedArray(width * height * 4);
-    let row = new Uint8ClampedArray(width * 4);
+export function ColorBar({
+    target_hue, threshold, width, height, buffer, row}){
     if(target_hue !== undefined && threshold != undefined){
         for(var x = 0; x < width; x++) {
             var pos = x * 4;
@@ -53,19 +49,20 @@ export function ColorBar({target_hue, threshold}){
         }
     }
     
-    
-    var canvas = document.createElement('canvas'),
-    ctx = canvas.getContext('2d');
+    if(buffer && width && height){
+        var canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d');
 
-    canvas.width = width;
-    canvas.height = height;
+        canvas.width = width;
+        canvas.height = height;
 
-    var idata = ctx.createImageData(width, height);
+        var idata = ctx.createImageData(width, height);
+        console.log(buffer, width, height, width * height);
+        idata.data.set(buffer);
 
-    idata.data.set(buffer);
-
-    ctx.putImageData(idata, 0, 0);
-    var dataUri = canvas.toDataURL(); 
+        ctx.putImageData(idata, 0, 0);
+        var dataUri = canvas.toDataURL(); 
+    }
     return (
         <img src={dataUri}/>
     )
