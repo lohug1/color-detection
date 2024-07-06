@@ -4,10 +4,29 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { ColorBar } from './colorbar'
 import { ImageWithMask } from './imageWithMask'
+import flowerImage from './flower'
 
 function App() {
   const [TargetHue, setTargetHue] = useState(20);
   const [Threshold, setThreshold] = useState(5);
+
+  var width = 735;
+  var height = 491;
+  var img = new Image();
+  img.src = flowerImage();
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var idata;
+  let buffer = new Uint8ClampedArray(width * height * 4);
+
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(img, 0, 0);
+  // create imageData object
+  idata = ctx.getImageData(0, 0, width, height);
+  ctx.putImageData(idata, 0, 0);
+
+
   const handleTargetHue = (event) => {
     setTargetHue(Math.round(event.target.value / 400  * 360));
   };
@@ -32,7 +51,7 @@ function App() {
       </div>
       <h4 style={{margin: 0}}>Threshold: {Threshold}</h4>
       <div>
-        <ImageWithMask target_hue={TargetHue} threshold={Threshold}/>
+        <ImageWithMask target_hue={TargetHue} threshold={Threshold} width={width} height={height} ctx={ctx} idata={idata} buffer={buffer}/>
       </div>
     </>
   )
